@@ -7,8 +7,12 @@ class Catalog:
     """This class handles queries to the OPAC."""
 
     def __init__(self):
-        self.loginurl = settings.URL
-        self.credentials = {settings.USERNAME_LABEL: settings.USERNAME,
+        """Init login URL, credentials, cookies, and URL opener."""
+
+        # Login URL and settings
+        self.loginurl = settings.LOGIN_URL
+        self.credentials = {
+                settings.USERNAME_LABEL: settings.USERNAME,
                 settings.PASSWORD_LABEL: settings.PASSWORD}
 
         # Make the cookie jar
@@ -24,6 +28,9 @@ class Catalog:
     def login(self):
         """Log into the OPAC."""
 
+        # Check if already logged in
+        self.is_logged_in()
+
         # Open the page
         self.opener.open(self.loginurl)
 
@@ -34,7 +41,24 @@ class Catalog:
         # Log in
         return self.opener.open(request)
 
+    def is_logged_in(self):
+        """Check if logged in to catalog."""
+
+        # Get account page
+        page = self.opener.open(settings.ACCOUNT_URL).read()
+
+        # Check account page text for login name
+        return settings.LOGIN_SUCCESS in page
+
     def search_barcode(self, barcode):
         """Search for item by barcode and return HTML."""
-        pass
+
+        # Ensure you are logged in
+        self.login()
+
+        # Search for barcode
+        page = self.opener.open(
+                settings.BARCODE_URL + barcode).read()
+        
+        return page
 

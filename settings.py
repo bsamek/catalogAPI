@@ -5,6 +5,8 @@ USERNAME = '2405'
 PASSWORD = '2405'
 USERNAME_LABEL = "code"
 PASSWORD_LABEL = "pin"
-URL = 'https://library.minlib.net/patroninfo/'
+LOGIN_URL = 'https://library.minlib.net/patroninfo/'
 LOGIN_SUCCESS = ("You are logged in as </font><font color=\"purple\" "
                  "size=\"+1\">STAFF</font><font color=\"purple\">")
+BARCODE_URL = "http://library.minlib.net/search/b?SEARCH="
+ACCOUNT_URL = "https://library.minlib.net/patroninfo~S1/1000030/top/"
