@@ -3,4 +3,5 @@
 class Item:
     """A bibliographic item."""
 
-    pass
+    def get_bibdata(self):
+        return {}
