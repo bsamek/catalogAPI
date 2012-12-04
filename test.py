@@ -16,6 +16,7 @@ class TestCatalog(unittest.TestCase):
 
         page = self.catalog.search_barcode(barcode)
 
+        # "2011" only appears in staff's record
         self.assertTrue("2011" in page)
         self.assertTrue(title in page)
 
