@@ -25,8 +25,5 @@ class TestCatalog(unittest.TestCase):
         self.catalog.login()
         self.assertTrue(self.catalog.is_logged_in())
 
-class TestItem(unittest.TestCase):
-    pass
-
 if __name__ == '__main__':
     unittest.main()
