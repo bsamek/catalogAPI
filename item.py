@@ -5,12 +5,25 @@ from bs4 import BeautifulSoup
 
 class Item:
     """A bibliographic item. 
-   
+
+    Item is initialized by passing it the HTML of a bibliographic
+    record page from the staff OPAC. Initialization automatically
+    calls parse_html(), which parses the HTML into the list
+    bibdata. The bibdata can be returned in text, json or xml.
+
     fields:
     self.bibdata[] -- a list of bibliographic data 
+
+    public methods:
+    __init__(page) -- calls parse_html of page, sets self.bibdata
+    bibdata_as_text() -- returns bibdata as text
+    bibdata_as_json() -- returns bibdata as json
+    bibdata_as_xml() -- returns bibdata as xml
+
     """
 
     def __init__(self, page):
+        """Parses page with parse_html."""
         self.parse_html(page)
 
     def bibdata_as_text(self):
@@ -24,12 +37,8 @@ class Item:
 
         return text
 
-    def bibdata_as_csv(self):
-        """Get bibdata as csv."""
-
     def bibdata_as_json(self):
         """Get bibdata as json."""
-
         return json.dumps(self.bibdata)
 
     def bibdata_as_xml(self):
@@ -77,7 +86,3 @@ class Item:
         # Parse bottom table
         for field in zip(*[iter(bottom('td'))]*2):
             self.bibdata.append([field[0].text, field[1].text])
-
-if __name__ == '__main__':
-    item = Item(open("bibrecord_example.html", "r").read())
-    print item.bibdata_as_xml()
