@@ -1,5 +1,6 @@
 """This module provides the class Item, representing a bibliographic item."""
 
+import json
 from bs4 import BeautifulSoup
 
 class Item:
@@ -15,10 +16,10 @@ class Item:
     def bibdata_as_text(self):
         """Get bibdata as text."""
         text = ""
-        for item in self.bibdata:
-            text += item[0]
+        for field in self.bibdata:
+            text += field[0]
             text += ": "
-            text += item[1]
+            text += field[1]
             text += "\n"
 
         return text
@@ -28,6 +29,19 @@ class Item:
 
     def bibdata_as_json(self):
         """Get bibdata as json."""
+
+        return json.dumps(self.bibdata)
+
+    def bibdata_as_xml(self):
+        soup = BeautifulSoup()
+
+        for field in self.bibdata:
+            tag = soup.new_tag("field", type=field[0])
+            tag.string = field[1]
+            soup.append(tag)
+
+        return soup.prettify()
+
 
     def parse_html(self, page):
         """Parses HTML page of a bib record.
@@ -66,4 +80,4 @@ class Item:
 
 if __name__ == '__main__':
     item = Item(open("bibrecord_example.html", "r").read())
-    print item.bibdata_as_text()
+    print item.bibdata_as_xml()
