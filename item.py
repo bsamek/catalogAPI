@@ -12,13 +12,21 @@ class Item:
     def __init__(self, page):
         self.parse_html(page)
 
-    def text_bibdata(self):
+    def bibdata_as_text(self):
         """Get bibdata as text."""
+        text = ""
+        for item in self.bibdata:
+            text += item[0]
+            text += ": "
+            text += item[1]
+            text += "\n"
 
-    def csv_bibdata(self):
+        return text
+
+    def bibdata_as_csv(self):
         """Get bibdata as csv."""
 
-    def json_bibdata(self):
+    def bibdata_as_json(self):
         """Get bibdata as json."""
 
     def parse_html(self, page):
@@ -58,4 +66,4 @@ class Item:
 
 if __name__ == '__main__':
     item = Item(open("bibrecord_example.html", "r").read())
-    print item.bibdata
+    print item.bibdata_as_text()
