@@ -16,7 +16,7 @@ class Item:
 
     public methods:
     __init__(page) -- calls parse_html of page, sets self.bibdata
-    bibdata_as_text() -- returns bibdata as text
+    bibdata_as_txt() -- returns bibdata as text
     bibdata_as_json() -- returns bibdata as json
     bibdata_as_xml() -- returns bibdata as xml
 
@@ -26,7 +26,7 @@ class Item:
         """Parses page with parse_html."""
         self.parse_html(page)
         
-    def bibdata_as_text(self):
+    def bibdata_as_txt(self):
         """Get bibdata as text."""
         text = ""
         for field in self.bibdata:
