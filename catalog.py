@@ -28,9 +28,6 @@ class Catalog:
     def login(self):
         """Log into the OPAC."""
 
-        # Check if already logged in
-        self.is_logged_in()
-
         # Open the page
         self.opener.open(self.loginurl)
 
@@ -59,6 +56,10 @@ class Catalog:
         # Search for barcode
         page = self.opener.open(
                 settings.BARCODE_URL + barcode).read()
-        
-        return page
-
+        if "Bib Level" in page:
+            return page
+        else:
+            self.login()
+            page = self.opener.open(
+                    settings.BARCODE_URL + barcode).read()
+            return page
