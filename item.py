@@ -25,7 +25,7 @@ class Item:
     def __init__(self, page):
         """Parses page with parse_html."""
         self.parse_html(page)
-
+        
     def bibdata_as_text(self):
         """Get bibdata as text."""
         text = ""
@@ -42,12 +42,13 @@ class Item:
         return json.dumps(self.bibdata)
 
     def bibdata_as_xml(self):
-        soup = BeautifulSoup()
+        """Get bibdata as XML."""
+        soup = BeautifulSoup("<record></record>")
 
         for field in self.bibdata:
             tag = soup.new_tag("field", type=field[0])
             tag.string = field[1]
-            soup.append(tag)
+            soup.record.append(tag)
 
         return soup.prettify()
 
