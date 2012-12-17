@@ -50,9 +50,6 @@ class Catalog:
     def search_barcode(self, barcode):
         """Search for item by barcode and return HTML."""
 
-        # Ensure you are logged in
-        self.login()
-
         # Search for barcode
         page = self.opener.open(
                 settings.BARCODE_URL + barcode).read()
